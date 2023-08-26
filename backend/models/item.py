@@ -1,5 +1,5 @@
 class Item:
-    def __init__(self, name, room, category, subcategory, location, quantity, price):
+    def __init__(self, name, room, category, subcategory, location, quantity, price, url):
         self.name = name
         self.room = room
         self.category = category
@@ -7,6 +7,7 @@ class Item:
         self.location = location
         self.quantity = quantity
         self.price = price
+        self.url = url
 
 
     def get_all_items():
@@ -38,7 +39,7 @@ class Item:
             return None
 
         return None
-    def create_item(name, room, category, subcategory, location, quantity, price):
+    def create_item(name, room, category, subcategory, location, quantity, price, url):
         import mysql.connector
         try:
             # Define the connection parameters
@@ -57,8 +58,8 @@ class Item:
                 cursor = connection.cursor()
 
                 # SQL query to insert a new room into the database
-                insert_item_query = "INSERT INTO items (name, room, category, subcategory, location, quantity, price) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                cursor.execute(insert_item_query, (name, room, category, subcategory, location, quantity, price))
+                insert_item_query = "INSERT INTO items (name, room, category, subcategory, location, quantity, price, url) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+                cursor.execute(insert_item_query, (name, room, category, subcategory, location, quantity, price, url))
 
                 connection.commit()
                 cursor.close()
@@ -80,7 +81,8 @@ class Item:
             'room': self.room,
             'category': self.category,
             'subcategory': self.subcategory,
-            'location': self.location
+            'location': self.location,
+            'url': self.url
         }
     
 

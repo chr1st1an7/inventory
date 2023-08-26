@@ -26,10 +26,11 @@ def create_item():
     location = data['location']
     quantity = data['quantity']
     price = data['price']
+    url = data['url']
 
     # Create a new Item
-    new_item = Item(name, room, category, subcategory, location, quantity, price)
-    Item.create_item(name, room, category, subcategory, location, quantity, price)
+    new_item = Item(name, room, category, subcategory, location, quantity, price, url)
+    Item.create_item(name, room, category, subcategory, location, quantity, price, url)
 
 
     # Add the new Item to the database (replace with your database operation)

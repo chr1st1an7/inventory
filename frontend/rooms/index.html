@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="rooms.js"></script>
     <title>Chriggle Inventory - Rooms</title>
 </head>
 <body>
@@ -27,34 +29,7 @@
     <!-- Bootstrap JS (optional) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        // Function to add a room to the list
-        function addRoomToList(roomName) {
-            const roomList = document.getElementById("roomList");
-            const listItem = document.createElement("li");
-            const anchor = document.createElement("a");
-            
-            // Set the href attribute to link to the individual room page
-            anchor.href = `/${roomName.toLowerCase().replace(/\s+/g, '-')}`;
-            anchor.textContent = roomName;
-            
-            listItem.appendChild(anchor);
-            roomList.appendChild(listItem);
-        }
     
-        // Handle form submission
-        $("#addRoomForm").submit(function(event) {
-            event.preventDefault();
-            const roomName = $("#roomName").val();
-            // You can send the roomName to your backend (Go) to save in the database
-            // Assuming you have a function to add the room to the database
-            // Example: addRoomToDatabase(roomName);
-            
-            // For now, let's just add it to the list
-            addRoomToList(roomName);
-            $("#roomName").val(""); // Clear the input field
-        });
-    </script>
     
 </body>
 </html>
