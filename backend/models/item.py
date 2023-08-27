@@ -1,3 +1,6 @@
+import database
+
+
 class Item:
     def __init__(self, name, room, category, subcategory, location, quantity, price, url):
         self.name = name
@@ -9,57 +12,31 @@ class Item:
         self.price = price
         self.url = url
 
-
     def get_all_items():
-        import mysql.connector
-        try:
-            # Define the connection parameters
-            config = {
-                'host': '192.168.1.100',        # Change to your MySQL server hostname
-                'port': 3306,               # Change to your MySQL server port
-                'user': 'christian',    # Change to your MySQL username
-                'password': '',  # Change to your MySQL password
-                'database': 'inventory'     # Change to your database name
-            }
+        connection = database.connection
+        if connection.is_connected():
+            cursor = database.connection.cursor()
 
-            # Establish the database connection
-            connection = mysql.connector.connect(**config)
+            # SQL query to insert a new room into the database
+            query = "SELECT * FROM items"
+            cursor.execute(query)
 
-            if connection.is_connected():
-                cursor = connection.cursor()
+            return cursor.fetchall()
 
-                # SQL query to insert a new room into the database
-                query = "SELECT * FROM items"
-                cursor.execute(query)
-
-                return cursor.fetchall()
-
-        except mysql.connector.Error as err:
-            print(f"Error: {err}")
-            return None
-
-        return None
     def create_item(name, room, category, subcategory, location, quantity, price, url):
         import mysql.connector
         try:
-            # Define the connection parameters
-            config = {
-                'host': '192.168.1.100',        # Change to your MySQL server hostname
-                'port': 3306,               # Change to your MySQL server port
-                'user': 'christian',    # Change to your MySQL username
-                'password': '',  # Change to your MySQL password
-                'database': 'inventory'     # Change to your database name
-            }
 
             # Establish the database connection
-            connection = mysql.connector.connect(**config)
+            connection = database.connection
 
             if connection.is_connected():
                 cursor = connection.cursor()
 
                 # SQL query to insert a new room into the database
                 insert_item_query = "INSERT INTO items (name, room, category, subcategory, location, quantity, price, url) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-                cursor.execute(insert_item_query, (name, room, category, subcategory, location, quantity, price, url))
+                cursor.execute(insert_item_query, (name, room, category,
+                               subcategory, location, quantity, price, url))
 
                 connection.commit()
                 cursor.close()
@@ -70,11 +47,9 @@ class Item:
             return None
 
         return None
-    
-
-
 
     # Define a method to convert the object to a JSON-serializable dictionary
+
     def to_json(self):
         return {
             'name': self.name,
@@ -84,5 +59,3 @@ class Item:
             'location': self.location,
             'url': self.url
         }
-    
-

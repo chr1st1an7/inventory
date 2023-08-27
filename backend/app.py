@@ -3,8 +3,10 @@ from flask_restful import Api
 from routes.room_routes import room_bp
 from routes.category_routes import category_bp
 from routes.item_routes import item_bp
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 app.register_blueprint(room_bp)

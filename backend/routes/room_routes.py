@@ -11,7 +11,7 @@ class RoomList(Resource):
         rooms = Room.get_all_rooms()
         return {'rooms': rooms}, 200
 
-@room_bp.route('/api/rooms', methods=['POST'])
+@room_bp.route('/api/room', methods=['POST'])
 def create_room():
     data = request.get_json()
 
